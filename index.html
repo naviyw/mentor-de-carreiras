@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerCoach AI - Seu Mentor de Carreira</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones externos para melhorar o visual -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i> <span>CareerCoach AI</span>
+        </div>
+        <p>Acelere sua jornada profissional com mentoria personalizada.</p>
+    </header>
+
+    <main class="container">
+        <!-- Painel de Configuração do Mentor -->
+        <section class="setup-section">
+            <h2><i class="fa-solid fa-sliders"></i> Configure seu Mentor</h2>
+            
+            <div class="input-group">
+                <label for="area-select">Em qual área você atua ou deseja atuar?</label>
+                <select id="area-select">
+                    <option value="tech">Tecnologia & Programação</option>
+                    <option value="design">Design & UX/UI</option>
+                    <option value="marketing">Marketing Digital</option>
+                    <option value="business">Negócios & Gestão</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="level-select">Qual seu nível de experiência atual?</label>
+                <select id="level-select">
+                    <option value="junior">Iniciante / Transição de Carreira</option>
+                    <option value="pleno">Pleno (Buscando evolução)</option>
+                    <option value="senior">Sênior (Buscando liderança)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Interface do Chat de Mentoria -->
+        <section class="chat-section">
+            <div class="chat-header">
+                <div class="mentor-status">
+                    <div class="status-dot"></div>
+                    <span>Mentor Virtual Ativo</span>
+                </div>
+            </div>
+
+            <div class="chat-box" id="chat-box">
+                <div class="message system-message">
+                    Selecione suas preferências acima e envie uma mensagem para começar a mentoria!
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="Pergunte sobre currículo, entrevista, evolução técnica..." autocomplete="off">
+                <button id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CareerCoach AI - Desenvolvido para Portfólio GitHub</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
