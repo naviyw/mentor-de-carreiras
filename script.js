@@ -1,100 +1,278 @@
-// Seleção de elementos do DOM
-const chatBox = document.getElementById('chat-box');
-const userInput = document.getElementById('user-input');
-const sendBtn = document.getElementById('send-btn');
-const areaSelect = document.getElementById('area-select');
-const levelSelect = document.getElementById('level-select');
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Alternância de Abas (Navegação Sidebar)
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-// Base de conhecimento simulada para as respostas do Mentor
-const mentorResponses = {
-    tech: {
-        junior: "Para iniciar em Tecnologia, foque em construir uma base sólida (Lógica de programação e Git) e crie projetos reais para o GitHub. Não tente aprender tudo de uma vez. Qual tecnologia específica você está estudando agora?",
-        pleno: "Como Pleno, seu próximo passo é dominar Arquitetura de Software, testes automatizados e soft skills (comunicação e liderança técnica). Você já lidera alguma iniciativa ou refatoração no seu escopo atual?",
-        senior: "Para consolidar sua senioridade ou ir para Specialist/Staff, foque em visão de negócio, mentoria de juniores e impacto sistêmico na empresa. Como você avalia sua influência nas decisões de produto hoje?"
-    },
-    design: {
-        junior: "Monte um portfólio focado na resolução de problemas, e não apenas em telas bonitas. Pratique o storytelling dos seus cases (Behance ou Notion). Qual ferramenta (Figma, Adobe) você domina melhor hoje?",
-        pleno: "É hora de aprofundar em Design System, testes de usabilidade estruturados e métricas de produto (conversão, retenção). Como você costuma validar suas decisões de design com dados?",
-        senior: "Designers seniores alinham a experiência do usuário diretamente aos objetivos financeiros da empresa. Foque em liderança estratégica de design e facilitação de workshops (como Design Sprints)."
-    },
-    marketing: {
-        junior: "O Marketing Digital exige entendimento de dados e psicologia do consumidor. Comece tirando certificações gratuitas de Google Analytics e Meta Ads, e aplique em projetos pessoais.",
-        pleno: "Mova-se de executor para analista estratégico. Domine funis de conversão complexos, Growth Hacking e automação de marketing. Qual canal de aquisição traz mais retorno no seu cenário atual?",
-        senior: "Liderança em marketing exige gestão de grandes orçamentos, branding de longo prazo e liderança de times multidisciplinares. Foque em estratégias Omnichannel e ROI de marca."
-    },
-    business: {
-        junior: "Entenda os fundamentos de metodologias ágeis (Scrum, Kanban) e análise de processos. Ser proativo e ter boa comunicação organizacional vai te destacar rapidamente.",
-        pleno: "Foque em gestão de stakeholders, OKRs e análise financeira/DRE do produto ou setor. Como você gerencia conflitos de prioridades no seu dia a dia atual?",
-        senior: "Governança corporativa, fusões, novas linhas de receita e desenvolvimento de lideranças são seu foco. Seu papel agora é traduzir a visão macro do board em execução tática."
-    }
-};
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const tabId = item.getAttribute('data-tab');
+            
+            navItems.forEach(n => n.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
 
-// Respostas genéricas caso a pergunta fuja do escopo direto
-const genericResponses = [
-    "Essa é uma ótima pergunta. Lembre-se sempre de que networking estruturado (LinkedIn) abre mais portas do que apenas enviar currículos em massa.",
-    "Para responder isso com precisão, tente quebrar esse grande objetivo em pequenas metas semanais. Qual seria o primeiro micro-passo?",
-    "Excelente ponto. Recomendo também buscar feedbacks constantes com seus pares e gestores para mapear seus pontos cegos profissionais."
-];
+            item.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
 
-// Função para adicionar mensagem na tela
-function appendMessage(text, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', `${sender}-message`);
-    messageDiv.innerText = text;
-    chatBox.appendChild(messageDiv);
-    
-    // Rola o chat para a última mensagem automaticamente
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Função que processa o envio da mensagem
-function handleSendMessage() {
-    const text = userInput.value.trim();
-    if (!text) return; // Evita enviar texto vazio
-
-    // 1. Adiciona a mensagem do usuário no chat
-    appendMessage(text, 'user');
-    userInput.value = '';
-
-    // 2. Simula o tempo de resposta do mentor (1 segundo)
-    appendMessage("Pensando no seu caso...", "mentor");
-    const typingMessage = chatBox.lastChild;
-
-    setTimeout(() => {
-        // Remove a mensagem de carregamento
-        typingMessage.remove();
-
-        // Pega as configurações atuais do usuário
-        const selectedArea = areaSelect.value;
-        const selectedLevel = levelSelect.value;
-
-        // Lógica de resposta simples por palavra-chave ou resposta padrão da área
-        let reply = "";
-        const lowerText = text.toLowerCase();
-
-        if (lowerText.includes("currículo") || lowerText.includes("cv") || lowerText.includes("portfolio")) {
-            reply = "Para destacar seu perfil, seu portfólio/currículo deve mostrar o impacto do seu trabalho (use números, ex: 'melhorei a performance em 20%') e não apenas listar responsabilidades.";
-        } else if (lowerText.includes("entrevista") || lowerText.includes("vaga")) {
-            reply = "Em entrevistas, use o método STAR (Situação, Tarefa, Ação e Resultado) para responder perguntas comportamentais. Treine sua narrativa antes da chamada.";
-        } else {
-            // Se for uma dúvida geral, usa o contexto de Área + Nível cadastrado
-            // Alterna às vezes com conselhos genéricos para simular dinâmica
-            if (Math.random() > 0.6) {
-                reply = mentorResponses[selectedArea][selectedLevel];
-            } else {
-                reply = genericResponses[Math.floor(Math.random() * genericResponses.length)];
-            }
+    // 2. Mapeamento Ampliado de Áreas para o Diagnóstico
+    const marketData = {
+        tech: {
+            demand: 92,
+            demandText: "Altíssima (92%)",
+            salary: "R$ 4.500 - R$ 12.000",
+            topSkill: "Projetos Práticos no GitHub",
+            advice: "Em Tecnologia, foque em construir soluções completas e postar no GitHub. Recrutadores valorizam mais projetos funcionando do que lista de certificados.",
+            tasks: [
+                "Criar repositório público com um README explicativo no GitHub",
+                "Publicar uma explicação de projeto recente no LinkedIn",
+                "Treinar resolução de problemas práticos de código semanalmente"
+            ]
+        },
+        design: {
+            demand: 82,
+            demandText: "Alta (82%)",
+            salary: "R$ 3.800 - R$ 9.000",
+            topSkill: "UX Research & Design Systems",
+            advice: "No mercado de Design, apresente a resolução de problemas (estudo de caso completo) em vez de apenas telas estáticas.",
+            tasks: [
+                "Escrever um estudo de caso detalhado no Behance ou Notion",
+                "Fazer testes de usabilidade com ao menos 3 pessoas em seu protótipo",
+                "Seguir e interagir com lideranças de produto e design no LinkedIn"
+            ]
+        },
+        data: {
+            demand: 88,
+            demandText: "Altíssima (88%)",
+            salary: "R$ 5.000 - R$ 13.000",
+            topSkill: "SQL, Python & Dashboards",
+            advice: "O segredo da área de dados é traduzir métricas complexas em histórias e recomendações claras para tomada de decisão.",
+            tasks: [
+                "Limpar e analisar uma base pública de dados do Kaggle",
+                "Construir um dashboard visual interativo em PowerBI/Tableau",
+                "Apresentar em 3 tópicos os principais achados da análise"
+            ]
+        },
+        business: {
+            demand: 78,
+            demandText: "Alta (78%)",
+            salary: "R$ 5.500 - R$ 14.000",
+            topSkill: "Gestão Ágil & OKRs",
+            advice: "Foque na gestão de processos e mediação de interesses entre equipes técnicas e diretores de negócios.",
+            tasks: [
+                "Mapear e documentar o fluxo de processo de um setor",
+                "Aprender a definir OKRs claros de curto prazo",
+                "Praticar técnicas de negociação e comunicação estratégica"
+            ]
+        },
+        marketing: {
+            demand: 80,
+            demandText: "Alta (80%)",
+            salary: "R$ 3.500 - R$ 8.500",
+            topSkill: "Marketing de Performance & SEO",
+            advice: "Marketing atual exige equilíbrio entre criatividade e análise de métricas como CAC, LTV e ROI de campanhas.",
+            tasks: [
+                "Desenvolver um plano de conteúdo focado em um funil de vendas",
+                "Analisar relatórios do Google Analytics ou Meta Ads",
+                "Criar e testar 2 variações de cópia de anúncios"
+            ]
+        },
+        finance: {
+            demand: 75,
+            demandText: "Estável / Alta (75%)",
+            salary: "R$ 4.200 - R$ 11.500",
+            topSkill: "Análise Financeira & Excel Avançado",
+            advice: "Domine a modelagem de cenários e a interpretação rápida de demonstrações financeiras (DRE e Fluxo de Caixa).",
+            tasks: [
+                "Construir uma planilha de fluxo de caixa projetado",
+                "Aprender automações básicas de planilhas",
+                "Acompanhar dados macroeconômicos e relatórios de mercado"
+            ]
+        },
+        health: {
+            demand: 85,
+            demandText: "Altíssima (85%)",
+            salary: "R$ 4.000 - R$ 10.000",
+            topSkill: "Atendimento Humanizado & Telemedicina",
+            advice: "Especialize-se na gestão de jornada do paciente e no uso de tecnologias de saúde e prontuários digitais.",
+            tasks: [
+                "Concluir atualização em ferramentas digitais de saúde",
+                "Praticar metodologias de atendimento focado na experiência do paciente",
+                "Participar de comunidades acadêmicas ou profissionais da área"
+            ]
+        },
+        hr: {
+            demand: 76,
+            demandText: "Alta (76%)",
+            salary: "R$ 3.800 - R$ 9.500",
+            topSkill: "People Analytics & Recrutamento Tech",
+            advice: "Trabalhe com retenção de talentos baseada em dados e estratégias de marcas empregadoras (Employer Branding).",
+            tasks: [
+                "Estruturar uma régua de contratação com métricas claras",
+                "Estudar People Analytics para medir clima e retenção",
+                "Construir uma abordagem atrativa para contato com candidatos"
+            ]
         }
+    };
 
-        // Insere a resposta oficial do mentor
-        appendMessage(reply, 'mentor');
-    }, 1000);
-}
+    // Seleção dos Chips de área no Diagnóstico
+    const chips = document.querySelectorAll('#area-chips .chip');
+    let selectedArea = 'tech';
 
-// Eventos de clique e teclado
-sendBtn.addEventListener('click', handleSendMessage);
-userInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        handleSendMessage();
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            chips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            selectedArea = chip.getAttribute('data-value');
+            updateMetrics(selectedArea);
+        });
+    });
+
+    function updateMetrics(area) {
+        const data = marketData[area];
+        if(!data) return;
+        document.getElementById('demand-bar').style.width = `${data.demand}%`;
+        document.getElementById('demand-text').textContent = data.demandText;
+        document.getElementById('salary-value').textContent = data.salary;
+        document.getElementById('top-skill').textContent = data.topSkill;
     }
+
+    // Formulário do Diagnóstico
+    const mentorForm = document.getElementById('mentor-form');
+    const resultsSection = document.getElementById('results-section');
+    const adviceOutput = document.getElementById('advice-output');
+    const taskList = document.getElementById('task-list');
+
+    mentorForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const goal = document.getElementById('goal-input').value;
+        const level = document.getElementById('level-select').value;
+        const currentData = marketData[selectedArea];
+
+        const btn = document.getElementById('generate-btn');
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processando...`;
+        btn.disabled = true;
+
+        setTimeout(() => {
+            adviceOutput.innerHTML = `<strong>Objetivo:</strong> "${goal}"<br><br>${currentData.advice} Para quem está no momento <em>${level.toUpperCase()}</em>, o plano ideal é combinar ação prática diária com visibilidade profissional.`;
+
+            taskList.innerHTML = '';
+            currentData.tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'task-item';
+                li.innerHTML = `<i class="fa-regular fa-square"></i> <span>${task}</span>`;
+                li.addEventListener('click', () => {
+                    li.classList.toggle('completed');
+                    const icon = li.querySelector('i');
+                    if(li.classList.contains('completed')) {
+                        icon.className = 'fa-solid fa-square-check';
+                    } else {
+                        icon.className = 'fa-regular fa-square';
+                    }
+                });
+                taskList.appendChild(li);
+            });
+
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            btn.innerHTML = `<span>Gerar Diagnóstico de Mercado</span> <i class="fa-solid fa-arrow-right"></i>`;
+            btn.disabled = false;
+        }, 800);
+    });
+
+    // 3. Módulo "Descubra sua Carreira" (Orientador)
+    const finderForm = document.getElementById('finder-form');
+    const finderResults = document.getElementById('finder-results');
+    const careerContainer = document.getElementById('career-cards-container');
+
+    const careerDatabase = [
+        {
+            title: "Desenvolvedor(a) Software / Web",
+            tags: ["Lógica", "Resolução de Problemas", "Construção Criativa"],
+            keywords: ["codigo", "programar", "site", "sistema", "logica", "tecnologia", "computador", "problemas"],
+            match: 95,
+            desc: "Ideal para quem gosta de criar soluções práticas, resolver problemas lógicos e trabalhar em ambientes inovadores e flexíveis."
+        },
+        {
+            title: "UX/UI Designer",
+            tags: ["Empatia", "Criatividade Visual", "Atenção a Detalhes"],
+            keywords: ["desenhar", "criar", "telas", "visual", "artes", "empatia", "usuarios", "bonito"],
+            match: 92,
+            desc: "Perfeito para mentes criativas que gostam de combinar estética, pesquisa de comportamento humano e prototipagem de produtos."
+        },
+        {
+            title: "Analista de Dados & Business Intelligence",
+            tags: ["Pensamento Analítico", "Números", "Estratégia"],
+            keywords: ["numeros", "planilhas", "analisar", "graficos", "matematica", "padroes", "pesquisa"],
+            match: 89,
+            desc: "Excelente opção para quem tem facilidade com números e gosta de descobrir padrões ocultos em informações para orientar decisões."
+        },
+        {
+            title: "Product Owner / Gestor de Produtos",
+            tags: ["Comunicação", "Organização", "Liderança"],
+            keywords: ["organizar", "pessoas", "comunicacao", "liderar", "conversar", "planejar", "estrategia"],
+            match: 87,
+            desc: "Ótimo para quem gosta de conectar times, entender necessidades de clientes e planejar prioridades de projetos."
+        },
+        {
+            title: "Especialista em Marketing Digital & Growth",
+            tags: ["Comunicação", "Psicologia", "Métricas"],
+            keywords: ["redes sociais", "vender", "escrever", "comunicar", "anuncios", "persuasao", "criativo"],
+            match: 85,
+            desc: "Indicado para quem tem boa escrita, gosta de redes sociais, estratégias de comunicação e quer resultados rápidos."
+        }
+    ];
+
+    finderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const likes = document.getElementById('likes-input').value.toLowerCase();
+        const skills = document.getElementById('skills-input').value.toLowerCase();
+        const combinedText = `${likes} ${skills}`;
+
+        const btn = document.getElementById('find-btn');
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Analisando Perfil...`;
+        btn.disabled = true;
+
+        setTimeout(() => {
+            careerContainer.innerHTML = '';
+
+            // Algoritmo simples de pontuação por palavras-chave
+            let rankedCareers = careerDatabase.map(c => {
+                let score = 0;
+                c.keywords.forEach(kw => {
+                    if (combinedText.includes(kw)) score += 1;
+                });
+                return { ...c, calculatedScore: score };
+            });
+
+            rankedCareers.sort((a, b) => b.calculatedScore - a.calculatedScore);
+
+            // Renderiza as 3 melhores carreiras
+            rankedCareers.slice(0, 3).forEach((item, index) => {
+                const boostMatch = Math.min(98, item.match - (index * 4));
+                const card = document.createElement('div');
+                card.className = 'career-card';
+                card.innerHTML = `
+                    <div class="career-card-header">
+                        <span class="career-title">${item.title}</span>
+                        <span class="match-badge">${boostMatch}% Compatível</span>
+                    </div>
+                    <p class="career-desc">${item.desc}</p>
+                    <div class="career-tags">
+                        ${item.tags.map(t => `<span class="c-tag">${t}</span>`).join('')}
+                    </div>
+                `;
+                careerContainer.appendChild(card);
+            });
+
+            finderResults.classList.remove('hidden');
+            finderResults.scrollIntoView({ behavior: 'smooth' });
+
+            btn.innerHTML = `<span>Analisar Meu Perfil e Sugerir Carreiras</span> <i class="fa-solid fa-sparkles"></i>`;
+            btn.disabled = false;
+        }, 900);
+    });
 });
