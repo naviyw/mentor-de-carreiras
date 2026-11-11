@@ -1,228 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareerStudio - Mentoria & Orientação de Carreira</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor de Carreira</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="bg-blur bg-blur-1"></div>
-    <div class="bg-blur bg-blur-2"></div>
-
-    <div class="app-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="brand">
-                <i class="fa-solid fa-compass"></i>
-                <span>Career<strong>Studio</strong></span>
-            </div>
-
-            <nav class="nav-menu">
-                <button class="nav-item active" data-tab="orientador-tab">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Descobrir Carreira
-                </button>
-                <button class="nav-item" data-tab="diagnostico-tab">
-                    <i class="fa-solid fa-chart-pie"></i> Diagnóstico & Plano
-                </button>
-            </nav>
-
-            <div class="user-card">
-                <div class="avatar"><i class="fa-regular fa-user"></i></div>
-                <div class="user-info">
-                    <span class="u-name">Profissional</span>
-                    <span class="u-status">Plataforma Ativa</span>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Workspace -->
-        <main class="main-content">
-
-            <!-- TAB 1: DESCOBRIR CARREIRA -->
-            <div id="orientador-tab" class="tab-content active">
-                <header class="top-header">
-                    <div>
-                        <h1>Descubra sua Carreira Ideal ✨</h1>
-                        <p>Responda sobre o que você gosta e no que se destaca. Nossa inteligência simula as melhores opções para seu perfil.</p>
-                    </div>
-                </header>
-
-                <div class="dashboard-grid single-col">
-                    <section class="soft-card">
-                        <h3><i class="fa-solid fa-heart"></i> Suas Habilidades e Interesses</h3>
-                        
-                        <form id="finder-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="likes-input">O que você mais GOSTA de fazer no dia a dia?</label>
-                                    <textarea id="likes-input" rows="3" placeholder="Ex: Resolver problemas lógicos, desenhar, conversar com pessoas, organizar rotinas, analisar números..." required></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="skills-input">No que você se considera REALMENTE BOM ou tem facilidade?</label>
-                                    <textarea id="skills-input" rows="3" placeholder="Ex: Comunicação clara, escuta ativa, atenção aos detalhes, raciocínio rápido, liderança, criatividade..." required></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="work-style">Ambiente e Estilo de Trabalho Preferido</label>
-                                    <select id="work-style">
-                                        <option value="remote">100% Remoto / Flexível</option>
-                                        <option value="office">Corporativo / Presencial</option>
-                                        <option value="creative">Ambiente Criativo e Autônomo</option>
-                                        <option value="people">Contato Direto com Pessoas e Clientes</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="salary-pref">Expectativa / Prioridade Inicial</label>
-                                    <select id="salary-pref">
-                                        <option value="balanced">Equilíbrio Vida Pessoal x Trabalho</option>
-                                        <option value="high-growth">Alto Crescimento / Maiores Salários</option>
-                                        <option value="impact">Causar Impacto Social ou Ajudar Pessoas</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <button type="submit" id="find-btn" class="btn-primary">
-                                <span>Analisar Meu Perfil e Sugerir Carreiras</span>
-                                <i class="fa-solid fa-sparkles"></i>
-                            </button>
-                        </form>
-                    </section>
-
-                    <!-- Resultados de Carreiras Recomendadas -->
-                    <section id="finder-results" class="soft-card hidden">
-                        <h3><i class="fa-solid fa-bullseye"></i> Carreiras Mais Compatíveis com Você</h3>
-                        <p class="section-desc">Com base nos seus gostos, habilidades e preferências informadas:</p>
-
-                        <div class="career-cards-grid" id="career-cards-container">
-                            <!-- Preenchido via JS -->
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-            <!-- TAB 2: DIAGNÓSTICO & PLANO DE AÇÃO -->
-            <div id="diagnostico-tab" class="tab-content">
-                <header class="top-header">
-                    <div>
-                        <h1>Diagnóstico & Plano de Carreira 💡</h1>
-                        <p>Escolha sua área de atuação atual ou desejada e receba métricas do mercado e plano de ação.</p>
-                    </div>
-                </header>
-
-                <div class="dashboard-grid">
-                    <!-- Form Card -->
-                    <section class="soft-card mentor-setup">
-                        <h3><i class="fa-solid fa-sliders"></i> Configuração do Perfil</h3>
-                        
-                        <form id="mentor-form">
-                            <div class="form-group">
-                                <label>Área de Atuação ou Interesse (8 Opções)</label>
-                                <div class="chip-group" id="area-chips">
-                                    <button type="button" class="chip active" data-value="tech">💻 Tecnologia</button>
-                                    <button type="button" class="chip" data-value="design">🎨 Design & UX</button>
-                                    <button type="button" class="chip" data-value="data">📊 Dados & IA</button>
-                                    <button type="button" class="chip" data-value="business">🚀 Negócios</button>
-                                    <button type="button" class="chip" data-value="marketing">📢 Marketing Digital</button>
-                                    <button type="button" class="chip" data-value="finance">💰 Finanças</button>
-                                    <button type="button" class="chip" data-value="health">🏥 Saúde</button>
-                                    <button type="button" class="chip" data-value="hr">🤝 RH & Pessoas</button>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Momento Profissional</label>
-                                <select id="level-select">
-                                    <option value="junior">Iniciante / Transição de Carreira</option>
-                                    <option value="pleno">Pleno (Buscando Crescimento)</option>
-                                    <option value="senior">Sênior / Liderança / Especialista</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Qual é o seu objetivo principal?</label>
-                                <input type="text" id="goal-input" placeholder="Ex: Conseguir 1º emprego, transição, aumento salarial..." required>
-                            </div>
-
-                            <button type="submit" id="generate-btn" class="btn-primary">
-                                <span>Gerar Diagnóstico de Mercado</span>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </form>
-                    </section>
-
-                    <!-- Insights Card -->
-                    <section class="soft-card market-insights">
-                        <h3><i class="fa-solid fa-chart-line"></i> Métricas da Área</h3>
-                        
-                        <div class="metric-item">
-                            <span class="m-label">Demanda Atual de Mercado</span>
-                            <div class="progress-bar-bg">
-                                <div class="progress-bar-fill" id="demand-bar" style="width: 88%;"></div>
-                            </div>
-                            <span class="m-val" id="demand-text">Altíssima (88%)</span>
-                        </div>
-
-                        <div class="metric-item">
-                            <span class="m-label">Faixa Salarial Média</span>
-                            <div class="salary-val" id="salary-value">R$ 4.500 - R$ 11.000</div>
-                        </div>
-
-                        <div class="metric-item">
-                            <span class="m-label">Competência Chave Recomendada</span>
-                            <span class="skill-tag" id="top-skill">Projetos no GitHub & Prática</span>
-                        </div>
-                    </section>
-
-                    <!-- Results Section -->
-                    <section class="soft-card full-width results-section hidden" id="results-section">
-                        <div class="results-header">
-                            <h2><i class="fa-solid fa-lightbulb"></i> Orientação do Mentor</h2>
-                        </div>
-
-                        <div class="advice-box" id="advice-output">
-                            Aguardando envio do formulário...
-                        </div>
-
-                        <div class="roadmap-wrapper">
-                            <h4>Trilha Recomendada em 3 Passos</h4>
-                            <div class="roadmap-grid">
-                                <div class="step-card">
-                                    <span class="step-badge">1</span>
-                                    <h5>Fundamentos & Base</h5>
-                                    <p>Domine os conceitos essenciais e ferramentas mais exigidas pela indústria.</p>
-                                </div>
-                                <div class="step-card">
-                                    <span class="step-badge">2</span>
-                                    <h5>Projetos & Portfólio</h5>
-                                    <p>Construa cases práticos e registre sua evolução no GitHub ou LinkedIn.</p>
-                                </div>
-                                <div class="step-card">
-                                    <span class="step-badge">3</span>
-                                    <h5>Networking & Vagas</h5>
-                                    <p>Aborde recrutadores de forma estratégica e prepare suas narrativas de entrevista.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tasks-wrapper">
-                            <h4>Checklist de Ação Semanal</h4>
-                            <ul class="task-list" id="task-list"></ul>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-        </main>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🚀</span>
+      <span class="logo-text">Mentor<span>Carreira</span></span>
     </div>
+    <nav class="nav-links">
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#trilhas">Trilhas</a>
+      <a href="#metas">Plano de Ação</a>
+    </nav>
+  </header>
 
-    <script src="script.js"></script>
+  <section class="hero">
+    <div class="hero-badge">Plano de Carreira Interativo</div>
+    <h1>Descubra seu Perfil e Acelere sua Carreira</h1>
+    <p>Faça o diagnóstico de habilidades, explore as competências mais demandadas pelo mercado e estruture suas metas profissionais com persistência local.</p>
+    <a href="#diagnostico" class="btn-primary hero-btn">Iniciar Diagnóstico</a>
+  </section>
+
+  <main class="container">
+    <!-- Diagnóstico / Quiz -->
+    <section id="diagnostico" class="card">
+      <div class="card-header">
+        <span class="step-tag">Etapa 1</span>
+        <h2>Diagnóstico de Perfil</h2>
+      </div>
+      <p class="card-subtitle">Responda às questões abaixo para avaliar o alinhamento do seu perfil com as áreas de mercado:</p>
+
+      <form id="quiz-form">
+        <div class="question-group">
+          <label for="q1">1. Qual atividade gera maior engajamento na sua rotina?</label>
+          <select id="q1" required>
+            <option value="">Selecione uma opção...</option>
+            <option value="tech">Resolver problemas lógicos, otimizar algoritmos e criar software</option>
+            <option value="design">Desenhar telas, organizar jornadas de usuários e criar protótipos</option>
+            <option value="management">Liderar times, mapear entregas e definir estratégias do produto</option>
+            <option value="marketing">Analisar funis de conversão, produzir campanhas e gerenciar mídias</option>
+          </select>
+        </div>
+
+        <div class="question-group">
+          <label for="q2">2. Em qual ecossistema você prefere concentrar seus estudos?</label>
+          <select id="q2" required>
+            <option value="">Selecione uma opção...</option>
+            <option value="tech">Linguagens de programação, bancos de dados e arquitetura web</option>
+            <option value="design">Design systems, testes de usabilidade e arquitetura de informação</option>
+            <option value="management">Metodologias ágeis (Scrum/Kanban), KPIs e roteiros de produto</option>
+            <option value="marketing">Copywriting, SEO, Google Analytics e estratégias de tráfego</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary full-width">Calcular Alinhamento de Carreira</button>
+      </form>
+
+      <div id="quiz-result" class="result-box hidden">
+        <div class="result-header">
+          <span class="result-badge" id="match-score">95% de Afinidade</span>
+          <h3 id="recommended-area">Nome da Trilha</h3>
+        </div>
+        <p id="recommended-desc"></p>
+        <div class="result-actions">
+          <button id="import-goals-btn" class="btn-secondary">Adicionar Metas dessa Trilha ao meu Plano</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trilhas de Habilidades -->
+    <section id="trilhas" class="card">
+      <div class="card-header">
+        <span class="step-tag">Etapa 2</span>
+        <h2>Trilhas de Desenvolvimento</h2>
+      </div>
+      <p class="card-subtitle">Navegue pelas competências exigidas para cada área do mercado de tecnologia:</p>
+
+      <div class="tabs" id="trilhas-tabs">
+        <button class="tab-btn active" data-tab="tech">Tecnologia</button>
+        <button class="tab-btn" data-tab="design">UI/UX Design</button>
+        <button class="tab-btn" data-tab="management">Gestão de Produto</button>
+        <button class="tab-btn" data-tab="marketing">Marketing Digital</button>
+      </div>
+
+      <div id="tab-content" class="tab-content-box">
+        <!-- Conteúdo dinâmico renderizado via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Plano de Ação Personalizado -->
+    <section id="metas" class="card">
+      <div class="card-header">
+        <span class="step-tag">Etapa 3</span>
+        <h2>Plano de Ação Personalizado</h2>
+      </div>
+      <p class="card-subtitle">Cadastre e gerencie suas metas profissionais com armazenamento automático no seu navegador:</p>
+
+      <div class="goal-input-container">
+        <input type="text" id="goal-input" placeholder="Ex: Criar um projeto fullstack no GitHub">
+        <select id="goal-priority">
+          <option value="Alta">Alta Prioridade</option>
+          <option value="Média" selected>Média Prioridade</option>
+          <option value="Baixa">Baixa Prioridade</option>
+        </select>
+        <button id="add-goal-btn" class="btn-primary">Adicionar Meta</button>
+      </div>
+
+      <div class="goals-filter">
+        <span>Filtrar por:</span>
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="pending">Pendentes</button>
+        <button class="filter-btn" data-filter="completed">Concluídas</button>
+      </div>
+
+      <ul id="goals-list" class="goals-list">
+        <!-- Lista de metas renderizada via JavaScript -->
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 MentorCarreira — Projeto pronto para publicação no GitHub Pages.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
